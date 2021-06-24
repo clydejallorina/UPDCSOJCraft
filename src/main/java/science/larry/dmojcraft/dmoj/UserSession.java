@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserSession {
-    private final static String BASE_URL = "https://dmoj.ca";
+//    private final static String BASE_URL = "https://dmoj.ca";
+    private final static String BASE_URL = "https://oj.dcs.upd.edu.ph";
     private final static List<String> gradingStatuses = Arrays.asList("QU", "P", "G");
 
     private String token;
@@ -48,24 +49,24 @@ public class UserSession {
     public int submit(String problem, int language, String code) throws IOException, InvalidSessionException {
         String submitURL = BASE_URL + "/problem/" + problem + "/submit";
 
-        Document doc;
-        try {
-            doc = getAuthRequest(submitURL).get();
-        } catch (HttpStatusException e) {
-            if (e.getStatusCode() == 401) {
-                throw new InvalidSessionException();
-            } else {
-                throw e;
-            }
-        }
-
-        String problemID = doc.getElementById("id_problem").val();
+//        Document doc;
+//        try {
+//            doc = getAuthRequest(submitURL).get();
+//        } catch (HttpStatusException e) {
+//            if (e.getStatusCode() == 401) {
+//                throw new InvalidSessionException();
+//            } else {
+//                throw e;
+//            }
+//        }
+//
+//        String problemID = doc.getElementById("id_problem").val();
 
         Response submitRes;
         try {
             submitRes = getAuthRequest(submitURL)
                     .method(Connection.Method.POST)
-                    .data("problem", problemID)
+//                    .data("problem", problemID)
                     .data("source", code)
                     .data("language", String.valueOf(language))
                     .followRedirects(true)
